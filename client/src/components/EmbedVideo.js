@@ -3,15 +3,15 @@ import ExampleResponse from './../assets/exampleResponse.json';
 import AddVideo from './AddVideo';
 import Video from './Video';
 
-const data = ExampleResponse
-console.log(data)
 
+function EmbedVideo() {
+  const data = ExampleResponse;
 
-function EmbedVideo() { 
-
+  const [state, setState] = useState(data)
+  
   return (
     <div>
-      <Video />
+      <Video state={state}/>
       <AddVideo />
     </div>
   )
