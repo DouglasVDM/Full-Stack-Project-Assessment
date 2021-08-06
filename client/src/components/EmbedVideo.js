@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ExampleResponse from './../assets/exampleResponse.json';
 import AddVideo from './AddVideo';
 import SelectVideo from './SelectVideo';
-import Video from './Video';
 
 
 function EmbedVideo() {
@@ -12,8 +11,7 @@ function EmbedVideo() {
   
   return (
     <div>
-      <SelectVideo />
-      <Video state={state}/>
+      <SelectVideo state={state}/>
       <AddVideo />
     </div>
   )

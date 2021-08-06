@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import DeleteButton from './DeleteButton';
 
-function Video({ state }) {
-  console.log(state);
+function Video({ videoData }) {
+  console.log(videoData);
   const [votes, setVotes] = useState(0);
 
   // Delete a Video
