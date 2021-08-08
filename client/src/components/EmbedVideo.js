@@ -4,15 +4,15 @@ import AddVideo from './AddVideo';
 import SelectVideo from './SelectVideo';
 
 
-function EmbedVideo() {
+function EmbedVideo() {  
   const data = ExampleResponse;
-
   const [state, setState] = useState(data)
+
   
   return (
     <div>
-      <SelectVideo state={state}/>
-      <AddVideo />
+      <SelectVideo state={state} />
+      <AddVideo state={state}/>
     </div>
   )
 }
