@@ -12,6 +12,7 @@ function EmbedVideo() {
   return (
     <div>
       <SelectVideo state={state} />
+      <br />
       <AddVideo state={state}/>
     </div>
   )
