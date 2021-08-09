@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import AddVideo from './AddVideo';
 import SelectVideo from './SelectVideo';
 
 function EmbedVideo() {  
@@ -19,7 +18,6 @@ function EmbedVideo() {
     <div>
       <SelectVideo state={state} />
       <br />
-      <AddVideo state={state}/>
     </div>
   )
 }
