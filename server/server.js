@@ -58,3 +58,20 @@ app.get('/:id', (req, res) => {
     res.status(404).json({ msg: `No video with the id of ${id}` });
   }
 });
+
+// DELETE by ID
+app.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  const deleteId = videos.some(video => video.id === parseInt(id));
+
+  if (deleteId) {
+    const deletedVideos = videos.filter(
+      video => video.id !== parseInt(id)
+    );
+    videos = deletedVideos;
+    res.json({ msg: `Video id: ${id} deleted!` });
+  } else {
+    res.status(404).json({ msg: `No video with the id of ${id}` });
+  }
+});
+
