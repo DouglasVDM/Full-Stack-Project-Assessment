@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import validator from 'validator';
 import { uuid } from 'uuidv4';
 
-function AddVideo() {
+function AddVideo({ allVideos }) {
+  let Videos = allVideos;
   const [errorMessage, setErrorMessage] = useState('');
-  const [ title, setTitle] = useState('');
+  const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
-  const [videos, setVideos] = useState([]);
+  const [videos, setVideos] = useState(Videos);
+  console.log(videos)
 
   const validate = (value) => {
     if (validator.isURL(value)) {
@@ -21,15 +23,16 @@ function AddVideo() {
   const handleSubmit = (event) => {
     event.preventDefault();    
     if (title && url) {
-      const video = {
+      const newVideo = {
         id: uuid(),
         title,
         url,
         rating: 0
       };
-      setVideos((videos) => {
-        return [...videos, video];
-      });
+      setVideos(videos.concat(newVideo))
+      // setVideos((videos) => {
+      //   return [...videos, newVideo];
+      // });
       setTitle('');
       setUrl('');
     } else {
@@ -51,7 +54,6 @@ function AddVideo() {
           onChange={(event) => setTitle(event.target.value)}
           />
       </div>
-      <br />
         <label htmlFor="url">URL: </label>
         <input
           type="text"
