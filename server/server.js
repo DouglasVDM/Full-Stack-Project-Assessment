@@ -45,3 +45,16 @@ app.post("/", (req, res) => {
     res.json(videos);
   }
 });
+
+// GET by ID
+app.get('/:id', (req, res) => {
+  const { id } = req.params;
+  const idExist = videos.some(video => video.id === parseInt(id));
+
+  if (idExist) {
+    const idFound = videos.filter(video => video.id === parseInt(id));
+    res.json(idFound);
+  } else {
+    res.status(404).json({ msg: `No video with the id of ${id}` });
+  }
+});
