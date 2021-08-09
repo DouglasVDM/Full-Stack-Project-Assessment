@@ -1,12 +1,12 @@
 import "./App.css";
-import EmbedVideo from "./components/EmbedVideo";
+import AllVideos from "./components/AllVideos";
 
 function App() {  
   return (
     <div className="App">
       <header className="App-header">
         <h1>Video Recommendation</h1>
-        <EmbedVideo />
+        <AllVideos />
       </header>
     </div>
   );
