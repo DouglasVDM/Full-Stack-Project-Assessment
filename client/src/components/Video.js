@@ -32,8 +32,8 @@ function Video({ url, state }) {
       {filteredVideo.map(video => {
         return (
           <>
-            <h2>Title: {video.title}</h2>
-            <h3>Rating: {video.rating}</h3>
+            <h6>Title: {video.title}</h6>
+            <h6>Rating: {video.rating}</h6>
             <UpVoteButton votes={votes} setVotes={setVotes} upVote={upVote} />
             <DownVoteButton votes={votes} setVotes={setVotes} downVote={downVote} />      
             <p>{votes}</p>

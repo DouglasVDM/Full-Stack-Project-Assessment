@@ -11,6 +11,7 @@ function AddVideo() {
   const validate = (value) => {
     if (validator.isURL(value)) {
       setErrorMessage('Is Valid URL')
+      setErrorMessage('')
     } else {
       setErrorMessage('Is Not Valid URL')
     }
@@ -70,15 +71,16 @@ function AddVideo() {
         <br />
       <button type="submit">Add Video</button>
       </form>
+        <br />
       {/* New Viedos added printing to the screen */}
       {
         videos.map((video) => {
           const { id, title, url, rating } = video;
           return (
-            <div key={id}>
-              <h4>{title}</h4>
-              <p>{url}</p>
-              <p>{rating}</p>
+            <div style={{ border:'.1rem solid blue' }} key={id}>
+              <h6>Title: {title}</h6>
+              <p>Url: {url}</p>
+              <p>Rating: {rating}</p>
             </div>
           )
         })
