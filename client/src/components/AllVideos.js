@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import ExampleResponse from '../assets/exampleResponse.json';
 import AddVideo from './AddVideo';
 import SelectVideo from './SelectVideo';
 
 function EmbedVideo() {  
-  const data = ExampleResponse;
-  const [state, setState] = useState(data)
+  const [state, setState] = useState([])
 
   useEffect(() => {
-    fetch(`http://localhost:5000/`)
+    fetch(`http://localhost:5000`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
