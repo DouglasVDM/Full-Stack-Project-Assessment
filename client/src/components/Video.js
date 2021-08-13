@@ -1,53 +1,49 @@
-import React, {useState} from 'react'
-import DeleteButton from './DeleteButton';
+import React, { useState } from 'react'
 import DownVoteButton from './DownVoteButton';
 import UpVoteButton from './UpVoteButton';
 
-function Video({ url, state }) {
-  const allVideos = state;
-  const [votes, setVotes] = useState(0);
-
-  // Extracting the Video Id from the URL
-  const videoId = url.split('=').pop();
-
+function SelectVideo({ videos }) {
+  const allVideos = videos;
+  const [url, setUrl] = useState(null);
+  const [rating, setRating] = useState(0);
+  
   const filteredVideo = allVideos.filter(video => video.url === url);
 
-  // Delete a Video
-  const deleteVideo = (url) => {
-    console.log(`Add logic to delete video`);
-    allVideos.filter(video => video.url !== url);
-    
-  };
-
-  const upVote = (setVotes, votes) => {
-    return () => setVotes(votes + 1);
+  const upVote = (setRating, rating) => {
+    return () => setRating(rating + 1);
   }
 
-  const downVote = (setVotes, votes) => {
-    return () => setVotes(votes - 1);
+  const downVote = (setRating, rating) => {
+    return () => setRating(rating - 1);
   }
-  
-  return (
+
+
+  const clickHandler = (event) => {
+    const result = event.target.value;
+    return setUrl(result);
+  };  
+
+  return (   
     <div>
-      {filteredVideo.map(video => {
+       <p>Found {allVideos.length} videos. Choose one.</p>
+      {/* Displaying all the Videos */}
+      {allVideos.map(video => {
+        const videoId = video.url.split('=').pop();
         return (
-          <>
+          <div style={{background: 'lightgreen'}}>
+            <br />
             <h6>Title: {video.title}</h6>
             <h6>Rating: {video.rating}</h6>
-            <UpVoteButton votes={votes} setVotes={setVotes} upVote={upVote} />
-            <DownVoteButton votes={votes} setVotes={setVotes} downVote={downVote} />      
-            <p>{votes}</p>
-          </>
+            <UpVoteButton rating={video.rating} setRating={setRating} upVote={upVote} />
+            <DownVoteButton rating={rating} setRating={setRating} downVote={downVote} />
+            <iframe width="560" height="315" src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+            <br />
+          </div>
         )
-      })}
-
-      <iframe width="560" height="315" src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-
-      <DeleteButton deleteVideo={deleteVideo} />      
+      })
+      }
     </div>
   )
-};
+}
 
-export default Video;
-
-
+export default SelectVideo
