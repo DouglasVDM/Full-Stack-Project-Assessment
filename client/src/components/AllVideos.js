@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import SelectVideo from './SelectVideo';
+import Video from './Video';
+import AddVideo from './AddVideo';
 
 function EmbedVideo() {  
-  const [state, setState] = useState([])
+  const [videos, setVideos] = useState([])
 
   useEffect(() => {
     fetch(`http://localhost:5000`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setState(data)
+        setVideos(data);
       });
   }, [])
 
   
   return (
     <div>
-      <SelectVideo state={state} />
+      <Video videos={videos} />
+      <br />
+      <AddVideo videos={videos} />
       <br />
     </div>
   )
