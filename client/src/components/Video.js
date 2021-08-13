@@ -30,13 +30,20 @@ function SelectVideo({ videos }) {
       {allVideos.map(video => {
         const videoId = video.url.split('=').pop();
         return (
-          <div style={{background: 'lightgreen'}}>
+          <div className="videos" style={
+            {
+              background: "lightgreen",
+              border: ".1rem solid blue",
+              margin: ".3rem"              
+            }}>
             <br />
             <h6>Title: {video.title}</h6>
+            <div className="container">
+              <iframe className="responsive-iframe" width="560" height="315" src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+            </div>
             <h6>Rating: {video.rating}</h6>
             <UpVoteButton rating={video.rating} setRating={setRating} upVote={upVote} />
             <DownVoteButton rating={rating} setRating={setRating} downVote={downVote} />
-            <iframe width="560" height="315" src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
             <br />
           </div>
         )
