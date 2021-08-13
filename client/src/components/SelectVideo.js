@@ -8,24 +8,23 @@ function SelectVideo({ state }) {
   const clickHandler = (event) => {
     const result = event.target.value;
     return setUrl(result);
-  };
+  };  
 
-   return (
+  return (   
     <div>
-      <p>Found {allVideos.length} videos. Choose one.</p>
-       <select onClick={clickHandler} className="custom-select">
-         <option value='0' >Choose a video</option>
-         {allVideos.map(video => {
-          return (
-            <>
-              <option value={video.url} id={video.id} key={video.id}>
-                {video.title}
-              </option>
-            </>
-           )
-         })}
-      </select>
-       {url ? <Video url={url} state={state} /> : null}
+       <p>Found {allVideos.length} videos. Choose one.</p>
+      {url ? <Video url={url} state={state} /> : null}
+
+      {/* Displaying all the Videos */}
+      {allVideos.map(video => {
+        const videoId = video.url.split('=').pop();
+        return (
+          <>
+            <iframe width="560" height="315" src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+          </>
+        )
+      })
+      }
     </div>
   )
 }
