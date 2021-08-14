@@ -75,7 +75,7 @@ function AddVideo({ allVideos }) {
       </form>
         <br />
       {/* New Viedos added printing to the screen */}
-      {
+      {/* {
         videos.map((video) => {
           const { id, title, url, rating } = video;
           return (
@@ -86,7 +86,7 @@ function AddVideo({ allVideos }) {
             </div>
           )
         })
-      }
+      } */}
     </div>
   )
 }
