@@ -12,15 +12,21 @@ function EmbedVideo() {
         console.log(data);
         setVideos(data);
       });
-  }, [])
-
+  }, []);
   
   return (
     <div>
-      <Video videos={videos} />
-      <br />
-      <AddVideo videos={videos} />
-      <br />
+      <div>
+        <AddVideo videos={videos} />
+      </div>
+      {videos.map(video => {
+        return <>
+          <Video videoRating={video.rating} videoUrl={video.url} videoTitle={video.title} videoId={video.id} />
+          <br />
+          
+        </>
+      })
+    }
     </div>
   )
 }
