@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import DownVoteButton from './DownVoteButton';
-import UpVoteButton from './UpVoteButton';
 
 function SelectVideo({videoId, videoRating, videoUrl, videoTitle }) {
   // const allVideos = videos;
