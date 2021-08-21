@@ -32,8 +32,8 @@ pool.connect((err) => {
   // GET "/"
 app.get("/", (req, res) => {
   pool
-    .query('SELECT * FROM videos').then((result) =>
-      res.json(result.rows))
+    .query('SELECT * FROM videos')
+    .then((result) => res.json(result.rows))
     .catch((event) => console.error(event));
   });
 
@@ -70,6 +70,22 @@ app.post("/", (req, res) => {
     videos.push(newVideo);
     res.json(videos);
   }
+  pool
+    .query(`SELECT * FROM videos WHERE title=${title}`)
+    .then((result) => {
+      if (result.rows.length > 0) {
+        return res
+          .status(400)
+          .send("A Video with the same name already exists!");
+      } else {
+        const query =
+          `INSERT INTO videos (id, title, url) VALUES (${newId},${title},${url})`;
+        pool
+          .query(query)
+          .then(() => res.send("Video created!"))
+          .catch((event) => console.error(event));
+      }
+    });
 });
 
 // GET by ID
