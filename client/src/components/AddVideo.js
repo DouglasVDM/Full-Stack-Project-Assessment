@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import validator from 'validator';
 import { uuid } from 'uuidv4';
 
-function AddVideo({ allVideos }) {
-  let Videos = allVideos;
+function AddVideo({ videos }) {
+  // let Videos = { videos };
   const [errorMessage, setErrorMessage] = useState('');
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
-  const [videos, setVideos] = useState(Videos);
-  console.log(videos)
+  const [newVideos, setNewVideos] = useState([...videos]);
+  console.log(newVideos)
 
   const validate = (value) => {
     if (validator.isURL(value)) {
@@ -21,28 +21,31 @@ function AddVideo({ allVideos }) {
 
   // Getting the Input Value, adding it to state
   const handleSubmit = (event) => {
-    event.preventDefault();    
-    if (title && url) {
-      const newVideo = {
-        id: uuid(),
-        title,
-        url,
-        rating: 0
-      };
-      setVideos(videos.concat(newVideo))
-      // setVideos((videos) => {
-      //   return [...videos, newVideo];
-      // });
+    event.preventDefault();
+    console.log(title, url);
+    
+    const newVideo = {
+      // id: uuid(),
+      title,
+      url,
+      rating: 0
+    }
+
+    if (title && url) {    
+      // setNewVideos(newVideos.concat(newVideo))
       setTitle('');
       setUrl('');
+      setNewVideos((videos) => {
+        return [...videos, newVideo];
+      });
     } else {
-      console.log(`Enter title and url`);
+      return alert(`Enter title and url`);
     }
   }
 
   return (
     <div>
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form" onSubmitCapture onSubmit={handleSubmit}>
       <div>
         <label htmlFor="title">Title:</label>          
         <input
@@ -51,7 +54,9 @@ function AddVideo({ allVideos }) {
           name="title"
           value={title}          
           placeholder="Add your Video Title"          
-          onChange={(event) => setTitle(event.target.value)}
+            onChange={(event) => {
+              setTitle(event.target.value)
+            }}
           />
       </div>
         <label htmlFor="url">URL: </label>
@@ -74,9 +79,9 @@ function AddVideo({ allVideos }) {
       <button type="submit">Add Video</button>
       </form>
         <br />
-      {/* New Viedos added printing to the screen */}
-      {/* {
-        videos.map((video) => {
+      New Videos added printing to the screen
+      {
+        newVideos.map((video) => {
           const { id, title, url, rating } = video;
           return (
             <div style={{ border:'.1rem solid blue' }} key={id}>
@@ -86,7 +91,7 @@ function AddVideo({ allVideos }) {
             </div>
           )
         })
-      } */}
+      }
     </div>
   )
 }

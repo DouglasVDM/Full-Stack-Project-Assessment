@@ -17,14 +17,16 @@ function EmbedVideo() {
   return (
     <div>
       <div>
-        <AddVideo videos={videos} />
+        <AddVideo videos={videos} />cd
       </div>
       {videos.map(video => {
-        return <>
-          <Video videoRating={video.rating} videoUrl={video.url} videoTitle={video.title} videoId={video.id} />
+        return (
+          <>
+            <Video videoRating={video.rating} videoUrl={video.url} videoTitle={video.title} videoId={video.id} videos={videos} />
+            <delete />
           <br />
-          
-        </>
+          </>
+        )
       })
     }
     </div>

@@ -1,20 +1,17 @@
 import React, { useState } from 'react'
 
-function SelectVideo({videoId, videoRating, videoUrl, videoTitle }) {
-  // const allVideos = videos;
-  let [rating, setRating] = useState(videoRating);
-  
-  // const filteredVideo = allVideos.filter(video => video.url === url);
+function SelectVideo({ videoId, videoRating, videoUrl, videoTitle, videos }) {
+  const [rating, setRating] = useState(videoRating);
+  const [deleteVideo, setDeleteVideo] = useState(videos);
 
   const vidId = videoUrl.split('=').pop();
 
   const upVote = (video) => {
-    console.log(video);
     if (video === videoRating) {
       setRating((video) => {
         return video + 1
       })
-    } else if (video === videoRating + 1){
+    } else if (video === videoRating + 1) {
       setRating((video))
     } else {
       return
@@ -23,28 +20,36 @@ function SelectVideo({videoId, videoRating, videoUrl, videoTitle }) {
 
   const downVote = (video) => {
     console.log(video);
-    if (video === videoRating +1) {
+    if (video === videoRating + 1) {
       setRating((video) => {
         return video - 1
       })
-    } else if (video === videoRating - 1){
+    } else if (video === videoRating - 1) {
       setRating((video))
     } else {
       return
     }
   };
 
-  const deleteVideo = () => {
-    console.log(`Delete me!`);
+  const handleClick = (videoId) => {
+    console.log(`Delete me ${videoId}!`);
+    const deleteId = deleteVideo.some(video => video.id === videoId);
+    console.log(`Delete me ${deleteId}!`);
+
+    if (deleteId) {
+      const deletedVideos = deleteVideo.filter(video => video.id !== videoId);
+      setDeleteVideo(deletedVideos)
+      console.log(deletedVideos)
+    };
   };
 
 
-  return (         
+  return (
     <div key={videoId} className="videos" style={
       {
         background: "lightgreen",
         border: ".1rem solid blue",
-        margin: ".3rem"              
+        margin: ".3rem"
       }}>
       <h6>Title: {videoTitle}</h6>
       <br />
@@ -56,10 +61,10 @@ function SelectVideo({videoId, videoRating, videoUrl, videoTitle }) {
       <button onClick={() => downVote(rating)}>Down Vote</button>
       <br />
       <div>
-        <button onClick={deleteVideo}>Delete</button>
+        <button onClick={() => handleClick(videoId)}>Delete</button>
       </div>
-    </div>       
+    </div>
   )
-}
+};
 
 export default SelectVideo;
