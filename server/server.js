@@ -1,7 +1,8 @@
 const express = require("express");
 const _ = require('lodash');
 const cors = require('cors');
-const { Pool } = require('pg')
+const { Pool } = require('pg');
+
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -10,6 +11,14 @@ app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const newId = () => {
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return Math.random().toString().substr(2, 6);
+};
+console.log(newId());
 
 const pool = new Pool({
     user: 'douglas',
@@ -37,28 +46,15 @@ app.get("/", (req, res) => {
     .catch((event) => console.error(event));
   });
 
-// import uniqueId from 'lodash/uniqueId';
-// todos.forEach((todo) => {
-//   todo.uniqueKey = uniqueId();
-// });
-// todos.forEach((todo) => {
-//   todo.uniqueKey && delete todo.uniqueKey;
-// });
-
 // POST "/"
 app.post("/", (req, res) => {
-  const { title, url } = req.body;
-  
-  // ID for New Video
-  const orderedIdVideos = _.orderBy(videos, ['id'], ['desc']); // 'asc'
-  const latestIdVideo = orderedIdVideos[0];
-  // Just need to check if order videos has a item in the array
-  const newId = latestIdVideo.id + 1;
+  const { title, url, rating } = req.body;
   
   const newVideo = {
-    id: newId,
-    title: title,
-    url: url
+    id: newId(),
+    title,
+    url,
+    rating
   }
   
   // Checking if any property of the Video object is missing or empty.
@@ -67,26 +63,24 @@ app.post("/", (req, res) => {
   } if (!newVideo.url) {
     res.status(400).json({ msg: `Please include a valid url` });
   } else {
-    videos.push(newVideo);
-    res.json(videos);
-  }
-  pool
-    .query(`SELECT * FROM videos WHERE title=${title}`)
-    .then((result) => {
-      if (result.rows.length > 0) {
-        return res
-          .status(400)
-          .send("A Video with the same name already exists!");
-      } else {
-        const query =
-          `INSERT INTO videos (id, title, url) VALUES (${newId},${title},${url})`;
-        pool
-          .query(query)
-          .then(() => res.send("Video created!"))
-          .catch((event) => console.error(event));
-      }
-    });
-});
+    // pool
+    //   .query(`SELECT * FROM videos WHERE title=${title}`)
+    //   .then((result) => {
+    //     if (result.rows.length > 0) {
+    //       return res
+    //         .status(400)
+    //         .send("A Video with the same name already exists!");
+    //     } else {
+          const query =
+            `INSERT INTO videos (id, title, url, rating) VALUES (${newId},${title},${url},${rating})`;
+          pool
+            .query(query)
+            .then(() => res.send("Video created!"))
+            .catch((event) => console.error(event));
+        }
+      });
+  // }
+// });
 
 // GET by ID
 app.get('/:id', (req, res) => {
