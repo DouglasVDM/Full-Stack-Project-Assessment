@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import ReactPlayer from 'react-player'
 import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa'
 
-function Video({ video, onDelete }) {
+function Video({ video, onDelete, onToggle }) {
   const [rating, setRating] = useState(video.rating);
-  const [deleteVideo, setDeleteVideo] = useState(video);
+
 
   const vidId = video.url.split('=').pop();
 
@@ -33,30 +33,22 @@ function Video({ video, onDelete }) {
     }
   };
 
-  const handleClick = (videoId) => {
-    console.log(`Delete me ${videoId}!`);
-    const deleteId = deleteVideo.some(video => video.id === videoId);
-    console.log(`Delete me ${deleteId}!`);
-
-    if (deleteId) {
-      const deletedVideos = deleteVideo.filter(video => video.id !== videoId);
-      setDeleteVideo(deletedVideos)
-      console.log(deletedVideos)
-    };
-  };
-
+// Toggle Div Favourite Class - Color
+// className = {`video ${video.favourite ? 'favourite' : ''}`}
 
   return (
-    <div key={video.id} className="video">
+    <div key={video.id} className="video" onDoubleClick={() => onToggle(video.id)}>
       <h6>{video.title}</h6>
       <div className="container">
-        <ReactPlayer controls url={`https://www.youtube.com/embed/${vidId}`}/>        
+        <ReactPlayer controls url={`https://www.youtube.com/embed/${vidId}`} />
       </div>
-      <FaThumbsUp style={{color: 'green', cursor: 'pointer'}} onClick={() => upVote(rating)} />
+      <FaThumbsUp style={{ color: 'green', cursor: 'pointer' }} onClick={() => upVote(rating)} />
       <h6>{rating}</h6>
       <FaThumbsDown style={{ color: 'red', cursor: 'pointer' }} onClick={() => downVote(rating)} />
       <div>
-        <button onClick={() => onDelete(video.id)}>Delete</button>
+        <button onClick={() => onDelete(video.id)}>
+          Delete
+        </button>
       </div>
     </div>
   )

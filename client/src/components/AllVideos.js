@@ -19,6 +19,16 @@ function AllVideos() {
     setVideos(videos.filter((video) => video.id !== id))
   }
 
+  // Favourite Video
+  const toggleFavourite = (id) => {
+    console.log(id)
+    // setVideos(
+    //   videos.map((video) =>
+    //     video.id === id ? { ...video, favourite: !video.favourite } : video
+    //   )
+    // )
+  }
+
   return (
     <div>
       <div>
@@ -28,7 +38,7 @@ function AllVideos() {
         return (
           <>
             {videos.length > 0 ? (
-              <Video onDelete={deleteVideo} video={video} />
+              <Video onDelete={deleteVideo} onToggle={toggleFavourite} video={video} />
             ) : (
               'No Videos To Show'
             )}
