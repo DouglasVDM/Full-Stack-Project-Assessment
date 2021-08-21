@@ -6,7 +6,7 @@ function Video({ video, onDelete, onToggle }) {
   const [rating, setRating] = useState(video.rating);
 
 
-  const vidId = video.url.split('=').pop();
+  const videoId = video.url.split('=').pop();
 
   const upVote = (currentRating) => {
     if (currentRating === video.rating) {
@@ -40,7 +40,7 @@ function Video({ video, onDelete, onToggle }) {
     <div key={video.id} className="video" onDoubleClick={() => onToggle(video.id)}>
       <h6>{video.title}</h6>
       <div className="container">
-        <ReactPlayer controls url={`https://www.youtube.com/embed/${vidId}`} />
+        <ReactPlayer controls url={`https://www.youtube.com/embed/${videoId}`} />
       </div>
       <FaThumbsUp style={{ color: 'green', cursor: 'pointer' }} onClick={() => upVote(rating)} />
       <h6>{rating}</h6>

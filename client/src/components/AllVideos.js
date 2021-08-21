@@ -14,6 +14,13 @@ function AllVideos() {
       });
   }, []);
 
+  // Add Video
+  const AddNewVideo = (video) => {
+    const id = Math.floor(Math.random() * 10000) + 1
+    const newVideo = { id, ...video }
+    setVideos([...videos, newVideo])
+  }
+
   // Delete Video
   const deleteVideo = (id) => {
     setVideos(videos.filter((video) => video.id !== id))
@@ -32,7 +39,7 @@ function AllVideos() {
   return (
     <div>
       <div>
-        <AddVideo videos={videos} />
+        <AddVideo onAdd={AddNewVideo} />
       </div>
       {videos.map(video => {
         return (
