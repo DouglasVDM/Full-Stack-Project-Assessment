@@ -19,7 +19,7 @@ function AddVideo({ videos }) {
   }
 
   // Getting the Input Value, adding it to state
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
     console.log(title, url);
     
@@ -79,7 +79,7 @@ function AddVideo({ videos }) {
         <br />
       New Videos added printing to the screen
       {
-        videos.map((video) => {
+        newVideos.map((video) => {
           const { id, title, url, rating } = video;
           return (
             <div style={{ border:'.1rem solid blue' }} key={id}>

@@ -1,32 +1,33 @@
 import React, { useState } from 'react'
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player'
+import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa'
 
-function Video({ videoId, videoRating, videoUrl, videoTitle, videos }) {
-  const [rating, setRating] = useState(videoRating);
-  const [deleteVideo, setDeleteVideo] = useState(videos);
+function Video({ video }) {
+  const [rating, setRating] = useState(video.rating);
+  const [deleteVideo, setDeleteVideo] = useState(video);
 
-  const vidId = videoUrl.split('=').pop();
+  const vidId = video.url.split('=').pop();
 
-  const upVote = (video) => {
-    if (video === videoRating) {
+  const upVote = (currentRating) => {
+    if (currentRating === video.rating) {
       setRating((video) => {
         return video + 1
       })
-    } else if (video === videoRating + 1) {
-      setRating((video))
+    } else if (currentRating === video.rating + 1) {
+      setRating(currentRating)
     } else {
       return
     }
   };
 
-  const downVote = (video) => {
-    console.log(video);
-    if (video === videoRating + 1) {
+  const downVote = (videoX) => {
+    console.log(videoX);
+    if (videoX === video.rating + 1) {
       setRating((video) => {
         return video - 1
       })
-    } else if (video === videoRating - 1) {
-      setRating((video))
+    } else if (videoX === video.rating - 1) {
+      setRating(videoX)
     } else {
       return
     }
@@ -46,16 +47,16 @@ function Video({ videoId, videoRating, videoUrl, videoTitle, videos }) {
 
 
   return (
-    <div key={videoId} className="video">
-      <h6>{videoTitle}</h6>
+    <div key={video.id} className="video">
+      <h6>{video.title}</h6>
       <div className="container">
         <ReactPlayer controls url={`https://www.youtube.com/embed/${vidId}`}/>        
       </div>
-      <button onClick={() => upVote(rating)}>Up Vote</button>
+      <FaThumbsUp style={{color: 'green', cursor: 'pointer'}} onClick={() => upVote(rating)} />
       <h6>{rating}</h6>
-      <button onClick={() => downVote(rating)}>Down Vote</button>
+      <FaThumbsDown style={{ color: 'red', cursor: 'pointer' }} onClick={() => downVote(rating)} />
       <div>
-        <button onClick={() => handleClick(videoId)}>Delete</button>
+        <button onClick={() => handleClick(video.id)}>Delete</button>
       </div>
     </div>
   )

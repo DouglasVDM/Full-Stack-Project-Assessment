@@ -22,7 +22,7 @@ function EmbedVideo() {
       {videos.map(video => {
         return (
           <>
-            <Video videoRating={video.rating} videoUrl={video.url} videoTitle={video.title} videoId={video.id} videos={videos} />
+            <Video video={video} />
             <delete />
           <br />
           </>
