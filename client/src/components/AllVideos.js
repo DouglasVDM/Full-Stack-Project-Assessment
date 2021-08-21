@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Video from './Video';
 import AddVideo from './AddVideo';
 
-function EmbedVideo() {  
+function AllVideos() {
   const [videos, setVideos] = useState([])
 
   useEffect(() => {
@@ -13,7 +13,12 @@ function EmbedVideo() {
         setVideos(data);
       });
   }, []);
-  
+
+  // Delete Video
+  const deleteVideo = (id) => {
+    setVideos(videos.filter((video) => video.id !== id))
+  }
+
   return (
     <div>
       <div>
@@ -22,15 +27,19 @@ function EmbedVideo() {
       {videos.map(video => {
         return (
           <>
-            <Video video={video} />
+            {videos.length > 0 ? (
+              <Video onDelete={deleteVideo} video={video} />
+            ) : (
+              'No Videos To Show'
+            )}
             <delete />
-          <br />
+            <br />
           </>
         )
       })
-    }
+      }
     </div>
   )
 }
 
-export default EmbedVideo
+export default AllVideos

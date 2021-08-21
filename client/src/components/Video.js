@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactPlayer from 'react-player'
 import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa'
 
-function Video({ video }) {
+function Video({ video, onDelete }) {
   const [rating, setRating] = useState(video.rating);
   const [deleteVideo, setDeleteVideo] = useState(video);
 
@@ -56,7 +56,7 @@ function Video({ video }) {
       <h6>{rating}</h6>
       <FaThumbsDown style={{ color: 'red', cursor: 'pointer' }} onClick={() => downVote(rating)} />
       <div>
-        <button onClick={() => handleClick(video.id)}>Delete</button>
+        <button onClick={() => onDelete(video.id)}>Delete</button>
       </div>
     </div>
   )
