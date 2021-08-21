@@ -1,5 +1,4 @@
 const express = require("express");
-const _ = require('lodash');
 const cors = require('cors');
 const { Pool } = require('pg');
 
@@ -49,9 +48,10 @@ app.get("/", (req, res) => {
 // POST "/"
 app.post("/", (req, res) => {
   const { title, url, rating } = req.body;
+  const id = newId();
   
   const newVideo = {
-    id: newId(),
+    id,
     title,
     url,
     rating
@@ -72,7 +72,7 @@ app.post("/", (req, res) => {
     //         .send("A Video with the same name already exists!");
     //     } else {
           const query =
-            `INSERT INTO videos (id, title, url, rating) VALUES (${newId},${title},${url},${rating})`;
+            `INSERT INTO videos (id, title, url, rating) VALUES (${id},'${title}','${url}',${rating})`;
           pool
             .query(query)
             .then(() => res.send("Video created!"))
