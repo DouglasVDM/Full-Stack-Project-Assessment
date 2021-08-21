@@ -17,8 +17,18 @@ const pool = new Pool({
     database: 'videos',
     password: 'PeanutbutteR2020%',
     port: 5432
-  });
-  
+});
+
+// To check whether the connection is succeed for Failed while running the project in console.
+pool.connect((err) => {
+  if (!err) {
+    console.log("Db Connection Succeed");
+  }
+  else {
+    console.log("Db connect Failed \n Error :" + JSON.stringify(err, undefined, 2));
+  }
+});
+
   // GET "/"
 app.get("/", (req, res) => {
   pool
@@ -27,6 +37,13 @@ app.get("/", (req, res) => {
     .catch((event) => console.error(event));
   });
 
+// import uniqueId from 'lodash/uniqueId';
+// todos.forEach((todo) => {
+//   todo.uniqueKey = uniqueId();
+// });
+// todos.forEach((todo) => {
+//   todo.uniqueKey && delete todo.uniqueKey;
+// });
 
 // POST "/"
 app.post("/", (req, res) => {
