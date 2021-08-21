@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import validator from 'validator';
-import { uuid } from 'uuidv4';
 
 function AddVideo({ videos }) {
   // let Videos = { videos };
@@ -25,7 +24,6 @@ function AddVideo({ videos }) {
     console.log(title, url);
     
     const newVideo = {
-      // id: uuid(),
       title,
       url,
       rating: 0
