@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Video from './Video';
 import AddVideo from './AddVideo';
+import Header from './Header';
 
 function AllVideos() {
   const [videos, setVideos] = useState([])
+  const [showAddVideo, setShowAddVideo] = useState(false)
 
   useEffect(() => {
     fetch(`http://localhost:4000`)
@@ -39,7 +41,8 @@ function AllVideos() {
   return (
     <div>
       <div>
-        <AddVideo onAdd={AddNewVideo} />
+        <Header onAdd={() => setShowAddVideo(!showAddVideo)} />
+        {showAddVideo ? <AddVideo onAdd={AddNewVideo} /> : ''}
       </div>
       {videos.map(video => {
         return (
