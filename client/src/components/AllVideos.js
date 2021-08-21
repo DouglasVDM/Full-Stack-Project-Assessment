@@ -41,7 +41,7 @@ function AllVideos() {
   return (
     <div>
       <div>
-        <Header onAdd={() => setShowAddVideo(!showAddVideo)} />
+        <Header showAdd={showAddVideo} onAdd={() => setShowAddVideo(!showAddVideo)} />
         {showAddVideo ? <AddVideo onAdd={AddNewVideo} /> : ''}
       </div>
       {videos.map(video => {
