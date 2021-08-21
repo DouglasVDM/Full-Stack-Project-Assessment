@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import ReactPlayer from 'react-player';
 
-function SelectVideo({ videoId, videoRating, videoUrl, videoTitle, videos }) {
+function Video({ videoId, videoRating, videoUrl, videoTitle, videos }) {
   const [rating, setRating] = useState(videoRating);
   const [deleteVideo, setDeleteVideo] = useState(videos);
 
@@ -45,21 +46,14 @@ function SelectVideo({ videoId, videoRating, videoUrl, videoTitle, videos }) {
 
 
   return (
-    <div key={videoId} className="videos" style={
-      {
-        background: "lightgreen",
-        border: ".1rem solid blue",
-        margin: ".3rem"
-      }}>
-      <h6>Title: {videoTitle}</h6>
-      <br />
+    <div key={videoId} className="video">
+      <h6>{videoTitle}</h6>
       <div className="container">
-        <iframe className="responsive-iframe" width="560" height="315" src={`https://www.youtube.com/embed/${vidId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+        <ReactPlayer controls url={`https://www.youtube.com/embed/${vidId}`}/>        
       </div>
       <button onClick={() => upVote(rating)}>Up Vote</button>
-      <h6>Rating: {rating}</h6>
+      <h6>{rating}</h6>
       <button onClick={() => downVote(rating)}>Down Vote</button>
-      <br />
       <div>
         <button onClick={() => handleClick(videoId)}>Delete</button>
       </div>
@@ -67,4 +61,4 @@ function SelectVideo({ videoId, videoRating, videoUrl, videoTitle, videos }) {
   )
 };
 
-export default SelectVideo;
+export default Video;
