@@ -33,11 +33,11 @@ function AddVideo({ videos }) {
 
     if (title && url) {    
       // setNewVideos(newVideos.concat(newVideo))
+      setNewVideos((videos) => {
+        return [...videos, newVideo]
+      });
       setTitle('');
       setUrl('');
-      setNewVideos((videos) => {
-        return [...videos, newVideo];
-      });
     } else {
       return alert(`Enter title and url`);
     }
@@ -81,7 +81,7 @@ function AddVideo({ videos }) {
         <br />
       New Videos added printing to the screen
       {
-        newVideos.map((video) => {
+        videos.map((video) => {
           const { id, title, url, rating } = video;
           return (
             <div style={{ border:'.1rem solid blue' }} key={id}>

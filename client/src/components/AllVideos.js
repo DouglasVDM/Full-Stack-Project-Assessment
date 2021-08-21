@@ -17,7 +17,7 @@ function EmbedVideo() {
   return (
     <div>
       <div>
-        <AddVideo videos={videos} />cd
+        <AddVideo videos={videos} />
       </div>
       {videos.map(video => {
         return (
