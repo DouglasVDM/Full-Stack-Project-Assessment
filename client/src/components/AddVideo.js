@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import validator from 'validator';
-import axios from 'axios'
+
 
 function AddVideo({ onAdd }) {
   const [errorMessage, setErrorMessage] = useState('');
@@ -65,20 +65,7 @@ function AddVideo({ onAdd }) {
         <br />
         <button type="submit">Add Video</button>
       </form>
-      <br />
-      {/* New Videos added printing to the screen
-      {
-        newVideos.map((video) => {
-          const { id, title, url, rating } = video;
-          return (
-            <div style={{ border:'.1rem solid blue' }} key={id}>
-              <h6>Title: {title}</h6>
-              <p>Url: {url}</p>
-              <p>Rating: {rating}</p>
-            </div>
-          )
-        })
-      } */}
+      <br />     
     </div>
   )
 }
