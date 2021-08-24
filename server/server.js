@@ -54,7 +54,7 @@ app.post("/", (req, res) => {
     id,
     title,
     url,
-    rating
+    rating = 0
   }
   
   // Checking if any property of the Video object is missing or empty.

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^0.21.1",
     "json-loader": "^0.5.7",
     "validator": "^13.6.0"
   }
