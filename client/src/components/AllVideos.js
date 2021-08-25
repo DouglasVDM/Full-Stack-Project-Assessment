@@ -17,11 +17,37 @@ function AllVideos() {
   }, []);
 
   // Add Video
-  const AddNewVideo = (video) => {
-    const id = Math.floor(Math.random() * 10000) + 1
-    const newVideo = { id, ...video }
-    setVideos([...videos, newVideo])
+  const AddNewVideo = ({ title, url }) => {
+    // const id = Math.floor(Math.random() * 10000) + 1
+    const newVideo = { title, url }
+    console.log('newVideo', newVideo)
+
+    const options = {
+      method: 'POST',
+      headers: {
+        "Content-Type": 'application/json',
+      },
+      body: JSON.stringify(newVideo)
+    }
+
+    fetch(`http://localhost:4000`, options)
+      .then((res) => {
+        if (res.status >= 200 && res.status <= 299) {
+          setVideos([...videos, newVideo])
+          alert(`Success!`)
+        } else {
+          throw new Error(
+            `Encountered something unexpected: ${res.status} ${res.statusText}`
+          )
+        }
+      })
+      .catch((error) => {
+        // Handle the error
+        console.log(error);
+      });
   }
+
+
 
   // Delete Video
   const deleteVideo = (id) => {

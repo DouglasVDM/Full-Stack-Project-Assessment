@@ -47,14 +47,16 @@ app.get("/", (req, res) => {
 
 // POST "/"
 app.post("/", (req, res) => {
-  const { title, url, rating } = req.body;
+  console.log('body', req.body)
+  const { title, url } = req.body;
   const id = newId();
+  const rating = 0
   
   const newVideo = {
     id,
     title,
     url,
-    rating = 0
+    rating
   }
   
   // Checking if any property of the Video object is missing or empty.
