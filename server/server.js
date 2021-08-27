@@ -20,11 +20,11 @@ const newId = () => {
 console.log(newId());
 
 const pool = new Pool({
-    user: 'douglas',
-    host: 'localhost',
-    database: 'videos',
-    password: 'PeanutbutteR2020%',
-    port: 5432
+  user: 'douglas',
+  host: 'localhost',
+  database: 'videos',
+  password: 'PeanutbutteR2020%',
+  port: 5432
 });
 
 // To check whether the connection is succeed for Failed while running the project in console.
@@ -37,13 +37,13 @@ pool.connect((err) => {
   }
 });
 
-  // GET "/"
+// GET "/"
 app.get("/", (req, res) => {
   pool
     .query('SELECT * FROM videos')
     .then((result) => res.json(result.rows))
     .catch((event) => console.error(event));
-  });
+});
 
 // POST "/"
 app.post("/", (req, res) => {
@@ -51,14 +51,14 @@ app.post("/", (req, res) => {
   const { title, url } = req.body;
   const id = newId();
   const rating = 0
-  
+
   const newVideo = {
     id,
     title,
     url,
     rating
   }
-  
+
   // Checking if any property of the Video object is missing or empty.
   if (!newVideo.title) {
     res.status(400).json({ msg: `Please include a title` });
@@ -73,22 +73,22 @@ app.post("/", (req, res) => {
     //         .status(400)
     //         .send("A Video with the same name already exists!");
     //     } else {
-          const query =
-            `INSERT INTO videos (id, title, url, rating) VALUES (${id},'${title}','${url}',${rating})`;
-          pool
-            .query(query)
-            .then(() => res.send("Video created!"))
-            .catch((event) => console.error(event));
-        }
-      });
-  // }
+    const query =
+      `INSERT INTO videos (id, title, url, rating) VALUES (${id},'${title}','${url}',${rating})`;
+    pool
+      .query(query)
+      .then(() => res.send("Video created!"))
+      .catch((event) => console.error(event));
+  }
+});
+// }
 // });
 
 // GET by ID
 app.get('/:id', (req, res) => {
   const { id } = req.params;
   const idExist = videos.some(video => video.id === parseInt(id));
-  
+
   if (idExist) {
     const idFound = videos.filter(video => video.id === parseInt(id));
     res.json(idFound);
@@ -100,17 +100,14 @@ app.get('/:id', (req, res) => {
 // DELETE by ID
 app.delete('/:id', (req, res) => {
   const { id } = req.params;
-  const deleteId = videos.some(video => video.id === parseInt(id));
-  
-  if (deleteId) {
-    const deletedVideos = videos.filter(
-      video => video.id !== parseInt(id)
-      );
-      videos = deletedVideos;
-      res.json({ msg: `Video id: ${id} deleted!` });
-    } else {
-      res.status(404).json({ msg: `No video with the id of ${id}` });
-    }
-  });
-  
-  
+
+  pool
+    .query(`DELETE FROM videos WHERE id=${id}`)
+    .then(() => {
+      pool
+        .query(`DELETE FROM videos WHERE id=${id}`)
+        .then(() => res.send(`Video ${id} deleted!`))
+        .catch((e) => console.error(e));
+    })
+    .catch((e) => console.error(e));
+});
