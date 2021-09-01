@@ -19,12 +19,19 @@ const newId = () => {
 };
 console.log(newId());
 
+// const pool = new Pool({
+//   user: 'douglas',
+//   host: 'localhost',
+//   database: 'videos',
+//   password: 'PeanutbutteR2020%',
+//   port: 5432
+// });
+
 const pool = new Pool({
-  user: 'douglas',
-  host: 'localhost',
-  database: 'videos',
-  password: 'PeanutbutteR2020%',
-  port: 5432
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 // To check whether the connection is succeed for Failed while running the project in console.
