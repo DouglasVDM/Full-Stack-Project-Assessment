@@ -1,5 +1,7 @@
 {
-    "start": "node server.js",
+    "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "axios": "^0.21.1",
     "json-loader": "^0.5.7",
