@@ -3,12 +3,16 @@ import Video from './Video';
 import AddVideo from './AddVideo';
 import Header from './Header';
 
+
+
 function AllVideos() {
   const [videos, setVideos] = useState([])
   const [showAddVideo, setShowAddVideo] = useState(false)
+  
+  const baseURL = `https://video-recommendation-fsa.herokuapp.com/`
 
   useEffect(() => {
-    fetch(`http://localhost:4000`)
+    fetch(baseURL)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -20,7 +24,6 @@ function AllVideos() {
   const AddNewVideo = ({ title, url }) => {
     // const id = Math.floor(Math.random() * 10000) + 1
     const newVideo = { title, url }
-    console.log('newVideo', newVideo)
 
     const options = {
       method: 'POST',
@@ -30,11 +33,11 @@ function AllVideos() {
       body: JSON.stringify(newVideo)
     }
 
-    fetch(`http://localhost:4000`, options)
+    fetch(baseURL, options)
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           setVideos([...videos, newVideo])
-          alert(`Success!`)
+          console.log(`${newVideo.title} added successfully!`)
         } else {
           throw new Error(
             `Encountered something unexpected: ${res.status} ${res.statusText}`
@@ -45,15 +48,21 @@ function AllVideos() {
         // Handle the error
         console.log(error);
       });
+    }
+    
+    
+    
+    // Delete Video
+  const deleteVideo = async (id) => {
+    await fetch(`${baseURL}/${id}`, {
+      method: 'DELETE'
+    })
+    const result = videos.filter((video) => video.id !== id)
+    setVideos(result)
   }
-
-
-
-  // Delete Video
-  const deleteVideo = (id) => {
-    setVideos(videos.filter((video) => video.id !== id))
-  }
-
+  
+  
+  
   // Favourite Video
   const toggleFavourite = (id) => {
     console.log(id)
