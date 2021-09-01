@@ -1,8 +1,8 @@
 {
+    "start": "node server.js",
   "dependencies": {
     "axios": "^0.21.1",
     "json-loader": "^0.5.7",
-    "validator": "^13.6.0",
-    "start": "node server.js"
+    "validator": "^13.6.0"
   }
 }
