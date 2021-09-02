@@ -24,7 +24,7 @@ const pool = new Pool({
   user: 'douglas',
   host: 'localhost',
   database: 'videos',
-  password: USER_PASSWORD,
+  password: 'PeanutbutteR2020%',
   port: 5432
 });
 
