@@ -9,7 +9,7 @@ function AllVideos() {
   const [videos, setVideos] = useState([])
   const [showAddVideo, setShowAddVideo] = useState(false)
   
-  const baseURL = `https://video-recommendation-fsa.herokuapp.com/`
+  const baseURL = `http://localhost:4000/`
 
   useEffect(() => {
     fetch(baseURL)

@@ -18,12 +18,21 @@ const newId = () => {
   return Math.random().toString().substr(2, 6);
 };
 console.log(newId());
+// Localhost Database Connection 
+// const pool = new Pool({
+//   user: 'douglas',
+//   host: 'localhost',
+//   database: 'videos',
+//   password: 'PeanutbutteR2020%',
+//   port: 5432
+// });
 
+// Heroku Database Connection
 const pool = new Pool({
-  user: 'douglas',
-  host: 'localhost',
-  database: 'videos',
-  password: 'PeanutbutteR2020%',
+  user: 'akloxfhtrbssvk',
+  host: 'ec2-52-45-179-101.compute-1.amazonaws.com',
+  database: 'd22gb25h9ughu8',
+  password: 'e1e0c4915466bd4e8e73d6e3bea8884c5b41ba2c93222df0c67e978d0af8155f',
   port: 5432
 });
 
