@@ -20,16 +20,14 @@ function Video({ video, onDelete, onToggle }) {
     }
   };
 
-  const downVote = (videoX) => {
-    console.log(videoX);
-    if (videoX === video.rating + 1) {
+  const downVote = (currentRating) => {
+    console.log(currentRating);
+    if (currentRating === video.rating + 1) {
       setRating((video) => {
         return video - 1
       })
-    } else if (videoX === video.rating - 1) {
-      setRating(videoX)
     } else {
-      return
+      setRating(currentRating)
     }
   };
 
