@@ -21,7 +21,7 @@ console.log(newId());
 
 // Localhost Database Connection
 const pool = new Pool({
-  user: USER_NAME,
+  user: 'douglas',
   host: 'localhost',
   database: 'videos',
   password: USER_PASSWORD,
