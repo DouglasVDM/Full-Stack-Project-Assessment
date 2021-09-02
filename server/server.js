@@ -25,7 +25,7 @@ const pool = new Pool({
   host: 'localhost',
   database: 'videos',
   password: 'PeanutbutteR2020%',
-  port: 5432
+  port: PORT
 });
 
 // To check whether the connection is succeed for Failed while running the project in console.
