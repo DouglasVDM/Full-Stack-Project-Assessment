@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require('cors');
-const { Pool, Client } = require('pg');
+const { Pool } = require('pg');
 
 
 const app = express();
@@ -11,25 +11,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Client Connection
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
-
-client.connect();
-
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
-
-// Random ID
 const newId = () => {
   // Math.random should be unique because of its seeding algorithm.
   // Convert it to base 36 (numbers + letters), and grab the first 9 characters
@@ -37,25 +18,15 @@ const newId = () => {
   return Math.random().toString().substr(2, 6);
 };
 console.log(newId());
-// Localhost Database Connection 
-// const pool = new Pool({
-//   user: 'douglas',
-//   host: 'localhost',
-//   database: 'videos',
-//   password: 'PeanutbutteR2020%',
-//   port: 5432
-// });
 
-// Heroku Database Connection
+// Localhost Database Connection
 const pool = new Pool({
-  user: 'akloxfhtrbssvk',
-  host: 'ec2-52-45-179-101.compute-1.amazonaws.com',
-  database: 'd22gb25h9ughu8',
-  password: 'e1e0c4915466bd4e8e73d6e3bea8884c5b41ba2c93222df0c67e978d0af8155f',
+  user: USER_NAME,
+  host: 'localhost',
+  database: 'videos',
+  password: USER_PASSWORD,
   port: 5432
 });
-
-
 
 // To check whether the connection is succeed for Failed while running the project in console.
 pool.connect((err) => {
