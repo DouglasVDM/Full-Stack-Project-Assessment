@@ -17,7 +17,6 @@ const newId = () => {
   // after the decimal.
   return Math.random().toString().substr(2, 6);
 };
-console.log(newId());
 
 // Localhost Database Connection
 const pool = new Pool({
@@ -25,7 +24,7 @@ const pool = new Pool({
   host: 'localhost',
   database: 'videos',
   password: 'PeanutbutteR2020%',
-  port: PORT
+  port: 5432
 });
 
 // To check whether the connection is succeed for Failed while running the project in console.

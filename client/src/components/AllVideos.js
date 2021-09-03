@@ -83,7 +83,7 @@ function AllVideos() {
         return (
           <>
             {videos.length > 0 ? (
-              <Video onDelete={deleteVideo} onToggle={toggleFavourite} video={video} />
+              <Video key={video.id} onDelete={deleteVideo} onToggle={toggleFavourite} video={video} />
             ) : (
               'No Videos To Show'
             )}
