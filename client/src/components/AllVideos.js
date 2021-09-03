@@ -8,7 +8,7 @@ import Header from './Header';
 function AllVideos() {
   const [videos, setVideos] = useState([])
   const [showAddVideo, setShowAddVideo] = useState(false)
-  
+
   const baseURL = `http://localhost:4000/`
 
   useEffect(() => {
@@ -48,11 +48,11 @@ function AllVideos() {
         // Handle the error
         console.log(error);
       });
-    }
-    
-    
-    
-    // Delete Video
+  }
+
+
+
+  // Delete Video
   const deleteVideo = async (id) => {
     await fetch(`${baseURL}/${id}`, {
       method: 'DELETE'
@@ -60,9 +60,9 @@ function AllVideos() {
     const result = videos.filter((video) => video.id !== id)
     setVideos(result)
   }
-  
-  
-  
+
+
+
   // Favourite Video
   const toggleFavourite = (id) => {
     console.log(id)
