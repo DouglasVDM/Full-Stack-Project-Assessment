@@ -101,14 +101,9 @@ app.get('/:id', (req, res) => {
 // DELETE by ID
 app.delete('/:id', (req, res) => {
   const { id } = req.params;
-
+  console.log(`id:`, id)
   pool
-    .query(`DELETE FROM videos WHERE id=${id}`)
-    .then(() => {
-      pool
-        .query(`DELETE FROM videos WHERE id=${id}`)
-        .then(() => res.send(`Video ${id} deleted!`))
-        .catch((e) => console.error(e));
-    })
-    .catch((e) => console.error(e));
+  .query(`DELETE FROM videos WHERE id=${id}`)
+  .then(() => res.send(`Video ${id} deleted!`).json())
+  .catch((e) => console.error(e));  
 });
