@@ -9,13 +9,12 @@ function AllVideos() {
   const [videos, setVideos] = useState([])
   const [showAddVideo, setShowAddVideo] = useState(false)
 
-  const baseURL = `http://localhost:4000/`
+  const baseURL = `http://localhost:4000`
 
   useEffect(() => {
     fetch(baseURL)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setVideos(data);
       });
   }, []);
@@ -53,12 +52,23 @@ function AllVideos() {
 
 
   // Delete Video
-  const deleteVideo = async (id) => {
-    await fetch(`${baseURL}/${id}`, {
-      method: 'DELETE'
-    })
-    const result = videos.filter((video) => video.id !== id)
-    setVideos(result)
+  const deleteVideo = (id) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: null
+    }
+
+    fetch(`baseURL/${id}`, options)
+      .then(response => {
+        return response.json()
+      })
+      .then(data =>
+        // this is the data we get after doing the delete request, do whatever you want with this data
+        console.log(data)
+      );
   }
 
 
@@ -87,7 +97,6 @@ function AllVideos() {
             ) : (
               'No Videos To Show'
             )}
-            <delete />
             <br />
           </>
         )
